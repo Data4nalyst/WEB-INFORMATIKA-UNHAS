@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts (Roboto) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&family=Roboto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&family=Roboto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <!-- CSS (Pisah ke CSS masing-masing) -->
@@ -17,10 +17,28 @@
     <link rel="stylesheet" href="css/section2.css">
     <link rel="stylesheet" href="css/section4.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <title>Teknik Informatika - Landing Page</title>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">INFORMATIKA</div>
+        
+        <ul class="nav-links">
+            <li><a href="#section-1" class="active">Profil</a></li>
+            <li><a href="#section-2">Laboratorium</a></li>
+            <li><a href="#section-3">Berita</a></li>
+            <li><a href="footer">Kontak</a></li>
+        </ul>
+
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
     <!-- SECTION 1: PROFIL TEKFOR -->
     <!-- PJ: Al -->
     <section id="section-1">
@@ -101,12 +119,11 @@
     </div>
     </section>
 
-
     <!-- SECTION 2 END -->
     
     <!-- SECTION 3: NEWS -->
     <!-- PJ: Ica, kak Aidil  -->
-    <section id="section-3">
+    <section id="section-2">
     </section>
     <!-- SECTION 3 END -->
 
@@ -122,5 +139,6 @@
     <script src="js/section2.js"></script>
     <script src="js/section3.js"></script>
     <script src="js/footer.js"></script>
+    <script src="js/navbar.js"></script>
 </body>
 </html>
