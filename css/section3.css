@@ -16,7 +16,7 @@ body.no-scroll {
 }
 
 /*Container Utama*/
-#section-2 {
+#section-3 {
   position: relative;
   width: 100%;
   min-height: 100vh; 
@@ -28,7 +28,7 @@ body.no-scroll {
   overflow: unset; 
 }
 
-#section-2 .left.content {
+#section-3 .left.content {
   height: fit-content;    
   align-self: flex-start; 
   position: -webkit-sticky; 
@@ -39,7 +39,7 @@ body.no-scroll {
   z-index: 10;
 }
 
-#section-2 .left h1 {
+#section-3 .left h1 {
   font-size: 6rem; 
   font-family: 'Times New Roman', serif; 
   font-weight: 900;
@@ -50,7 +50,7 @@ body.no-scroll {
   margin: 0;
 }
 
-#section-2 .right.content {
+#section-3 .right.content {
   flex-grow: 1;           
   position: relative;
   min-height: 100vh;      
