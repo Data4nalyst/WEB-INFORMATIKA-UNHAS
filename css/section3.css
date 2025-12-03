@@ -18,6 +18,7 @@ body.no-scroll {
     overflow: hidden; 
     padding-bottom: 200px;
     border-top: 1px solid #e0e0e0;
+    scroll-margin-top: 500px;
 }
 
 /* --- WRAPPER --- */
@@ -30,14 +31,15 @@ body.no-scroll {
     z-index: 1;
 }
 
+/* --- HEADERS --- */
 .section-header {
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 80px; 
     animation: fadeInDown 0.8s ease-out;
 }
 
 .section-header h2 {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Roboto', sans-serif; 
     font-size: 4rem; 
     font-weight: 700;
     color: #111;
@@ -59,76 +61,78 @@ body.no-scroll {
     font-size: 1.2rem;
 }
 
-/* --- GRID CONTAINER --- */
+/* --- FLEX CONTAINER --- */
 #scatterContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px; /* Jarak antar kartu kiri-kanan */
-    align-items: start; 
-    
+    display: flex; 
+    justify-content: center;
+    gap: 80px; 
     width: 100%;
     margin: 0 auto;
     position: relative;
+    padding-bottom: 50px;
 }
 
+.parallax-col {
+    position: relative;
+    width: 45%; 
+    display: flex;
+    flex-direction: column;
+    gap: 100px; 
+}
+
+/* --- CARD STYLES --- */
 .scat-paper {
     position: relative;
     display: block;
     width: 100%;
-    min-height: 550px;
     background: transparent;
     padding: 0;
     border: none;
     box-shadow: none;
-    margin-bottom: 100px; 
     opacity: 1;
-}
-
-#scatterContainer .scat-paper:nth-child(even) {
-    margin-top: 0; 
+    will-change: transform, opacity, filter;
 }
 
 .card-inner {
     width: 100%; 
-    height: 100%;
-    
+    height: auto;
     background-color: #fff; 
     border: 1px solid #e5e5e5;
     box-shadow: 0 15px 40px rgba(0,0,0,0.08); 
     padding: 3.5rem; 
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 4px;
     
     display: flex; 
     flex-direction: column; 
     justify-content: space-between;
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .scat-paper:hover .card-inner {
-    transform: translateY(-10px) scale(1.01); 
-    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
     border-color: #bbb;
 }
 
-.blur-content { flex-grow: 1; }
-
 .blur-content h2 {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 3rem; 
     margin-bottom: 1.5rem;
     color: #111;
     border-bottom: 4px solid #111;
     padding-bottom: 1rem;
-    line-height: 1.1;
+    line-height: 1.2; 
+    font-weight: 700;
 }
 
 .blur-content p {
-    font-family: Georgia, serif; 
+    font-family: 'Roboto', sans-serif;
     font-size: 1.2rem; 
     color: #555;
     line-height: 1.6;
     text-align: justify;
+    font-weight: 400;
 }
 
 .separator {
@@ -139,29 +143,18 @@ body.no-scroll {
     width: 100%;
 }
 
-.modal-controls-side {
-    position: static; 
-    width: 0; height: 0;
-    pointer-events: none;
-}
-
-.nav-group { position: static; }
-
+/* --- MODAL --- */
 .control-btn {
     position: fixed;
     z-index: 10010; 
     pointer-events: auto;
-    
     background: rgba(255, 255, 255, 0.95); 
     border: 1px solid rgba(0,0,0,0.1);
-    
     width: 60px; height: 60px;
     border-radius: 50%; 
-    
     font-size: 2rem;
     color: #333;
     cursor: pointer;
-    
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 5px 20px rgba(0,0,0,0.25);
     transition: all 0.3s ease;
@@ -172,21 +165,11 @@ body.no-scroll {
     background: #d00; 
     color: white;
     transform: scale(1.15);
-    box-shadow: 0 10px 25px rgba(221, 0, 0, 0.4);
-    border-color: #d00;
 }
 
-/* Posisi Close (Kanan Atas) */
 #closeBtn { top: 40px; right: 40px; }
-#closeBtn:hover { transform: scale(1.15) rotate(90deg); }
-
-/* Posisi Prev (Tengah Kiri) */
 #prevBtn { top: 50%; left: 40px; transform: translateY(-50%); }
-#prevBtn:hover { transform: translateY(-50%) scale(1.15); }
-
-/* Posisi Next (Tengah Kanan) */
 #nextBtn { top: 50%; right: 40px; transform: translateY(-50%); }
-#nextBtn:hover { transform: translateY(-50%) scale(1.15); }
 
 #detailModal.modal-overlay { 
     position: fixed; top: 0; left: 0; 
@@ -199,7 +182,7 @@ body.no-scroll {
 }
 #detailModal.hidden { opacity: 0; pointer-events: none; }
 
-.modal-stack-wrap { position: relative; width: 1000px; height: 90vh; max-width: 95%; }
+.modal-stack-wrap { position: relative; width: 1600px; height: 90vh; max-width: 95%; }
 
 .mod-paper { 
     position: absolute; inset: 0; margin: auto; 
@@ -212,34 +195,22 @@ body.no-scroll {
 .mod-paper.behind { z-index: 10; filter: brightness(0.8); pointer-events: none; }
 
 .paper-img-large { 
-    width: 100%; height: 400px; object-fit: cover; 
+    width: 100%; height: 650px; object-fit: contain; 
     margin-bottom: 2.5rem; border-bottom: 5px solid #333; 
 }
 
-.mod-paper.active h2 { font-family: 'Times New Roman', serif; font-size: 3.5rem; margin-bottom: 1.5rem; color: #000; }
-.mod-paper.active p { font-family: Georgia, serif; line-height: 1.8; font-size: 1.25rem; color: #333; }
+.mod-paper.active h2 { 
+    font-family: 'Roboto', sans-serif; 
+    font-size: 3.5rem; 
+    margin-bottom: 1.5rem; 
+    color: #000; 
+    font-weight: 700;
+}
+.mod-paper.active p { 
+    font-family: 'Roboto', sans-serif; 
+    line-height: 1.8; 
+    font-size: 1.25rem; 
+    color: #333; 
+}
 
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-
-@media (max-width: 900px) {
-    #scatterContainer { grid-template-columns: 1fr; gap: 60px; }
-    #scatterContainer .scat-paper:nth-child(even) { margin-top: 0; }
-    
-    .scat-paper { min-height: auto; margin-bottom: 80px; }
-    .card-inner { padding: 2rem; }
-    
-    .news-wrapper { padding: 40px 0; }
-    .section-header h2 { font-size: 2.5rem; }
-    .blur-content h2 { font-size: 2rem; }
-    
-    #closeBtn { top: 20px; right: 20px; width: 50px; height: 50px; }
-    
-    #prevBtn, #nextBtn {
-        top: auto; bottom: 30px; 
-        transform: none;
-    }
-    #prevBtn { left: 50%; margin-left: -70px; }
-    #nextBtn { right: auto; left: 50%; margin-left: 10px; }
-    
-    #prevBtn:hover, #nextBtn:hover { transform: scale(1.1); }
-}
