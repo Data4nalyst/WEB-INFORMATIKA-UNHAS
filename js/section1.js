@@ -1,15 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll('.autoBlur');
+    const section1 = document.getElementById('section-1');
+    if (!section1) return;
 
-    // Biarkan animasi intro selama 2 detik
-    setTimeout(() => {
+    const elements = section1.querySelectorAll('.autoBlur');
+    let introTimer; 
+
+    // Fungsi utama untuk mengaktifkan mode scroll
+    const activateScrollMode = () => {
+        clearTimeout(introTimer);
+        window.removeEventListener('scroll', onUserScroll);
+
         elements.forEach(el => {
-            // Stop semua animasi intro
+            // Stop animasi intro (agar transisi CSS mengambil alih)
             el.style.animation = "none";
-            void el.offsetWidth; 
-
-            // Aktifkan animasi scroll
             el.classList.add("active");
         });
-    }, 2000);
+    };
+
+    const onUserScroll = () => {
+        if (window.scrollY > 30) {
+            activateScrollMode();
+        }
+    };
+
+    introTimer = setTimeout(activateScrollMode, 2000);
+    window.addEventListener('scroll', onUserScroll);
 });
