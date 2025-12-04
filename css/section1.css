@@ -1,0 +1,109 @@
+/* Container Utama */
+#section-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../assets/images/bg_section1.jpg");
+    font-family: 'Jacques Francois', serif;
+}
+
+#section-1 > div:not(#profil) {
+    position: absolute; 
+    font-size: 9.3vw;    
+    white-space: nowrap;
+    pointer-events: none; 
+    user-select: none;    
+    z-index: 1;
+}
+
+#section-1 > div:nth-child(1) {
+    top: 10%;      
+    left: -4%;    
+}
+
+#section-1 > div:nth-child(2) {
+    top: 23%;
+    left: 15%;
+}
+
+#section-1 > div:nth-child(4) {
+    top: 52%;
+    left: 8%;
+}
+
+#section-1 > div:nth-child(5) {
+    bottom: 14%;   
+    left: 2%;  
+}
+
+#section-1 > div:nth-child(6) {
+    bottom: 0%;
+    left: 25%;
+}
+
+#profil {
+    position: relative;
+    z-index: 2; 
+    width: 85vw; 
+    padding: 2vw 2vw;
+    background: #F3F2ED;
+    text-align: left;
+    font-size: 1.3vw; 
+    font-family: 'Roboto Serif', serif; 
+}
+
+/* Animasi */
+
+/* INTRO (0–2 DETIK) */
+#section-1 > div:nth-child(1).autoBlur{
+    animation: introTo1Blur 2s ease-in-out forwards;
+}
+#section-1 > div:nth-child(2).autoBlur{
+    animation: introTo2Blur 2s ease-in-out forwards;
+}
+#section-1 > div:nth-child(4).autoBlur {
+    animation: introTo4Blur 2s ease-in-out forwards;
+}
+#section-1 > div:nth-child(5).autoBlur {
+    animation: introTo5Blur 2s ease-in-out forwards;
+}
+#section-1 > div:nth-child(6).autoBlur {
+    animation: introTo6Blur 2s ease-in-out forwards;
+}
+@keyframes introTo1Blur {
+    0% { filter: blur(0px); }
+    100% { filter: blur(8px); } 
+}
+@keyframes introTo2Blur {
+    0% { filter: blur(0px); }
+    100% { filter: blur(3px); }
+}
+@keyframes introTo4Blur {
+    0% { filter: blur(0px);  }
+    100% { filter: blur(3px); }
+}
+@keyframes introTo5Blur {
+    0% { filter: blur(0px); }
+    100% { filter: blur(6px); }
+}
+@keyframes introTo6Blur {
+    0% { filter: blur(0px);  }
+    100% { filter: blur(11px); }
+}
+
+/* SCROLL (SETELAH 2 DETIK) */
+.autoBlur.active {
+    animation: autoBlurAnimation linear both !important;
+    animation-timeline: view() !important;
+}
+@keyframes autoBlurAnimation {
+    0% {
+        filter: blur(20px);
+    }
+    45%, 55% {
+        filter: blur(0px);
+    }
+    100% {
+        filter: blur(20px);
+    }
+}
