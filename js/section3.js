@@ -71,13 +71,14 @@
       scatterContainer.appendChild(colLeft);
       scatterContainer.appendChild(colRight);
 
-      // --- ANIMASI PIN & FADE (Menghilang) ---
       setTimeout(() => {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               
               const cards = document.querySelectorAll('.scat-paper');
               
               cards.forEach((card) => {
+                  const isLast = !card.nextElementSibling; 
+
                   gsap.to(card, {
                       opacity: 0,       
                       scale: 0.8,       
@@ -87,8 +88,8 @@
                       scrollTrigger: {
                           trigger: card,
                           start: "center center", 
-                          end: "+=60%",          
-                          pin: true,              
+                          end: isLast ? "+=500%" : "+=60%",          
+                          pin: isLast ? false : true,              
                           pinSpacing: true,       
                           scrub: 1,             
                           toggleActions: "play none none reverse"
@@ -100,30 +101,85 @@
     }
   
     // --- MODAL ---
-    function updateModalStack() {
-      if(!modalStackWrap) return;
-      modalStackWrap.innerHTML = ''; 
-      
-      papersData.forEach((d, index) => {
-        const modPaper = document.createElement('div');
-        modPaper.classList.add('mod-paper');
-        if (index === activeIndex) {
-          modPaper.classList.add('active');
-          const imgHTML = d.image ? `<img src="${d.image}" class="paper-img-large">` : '';
-          modPaper.innerHTML = ` ${imgHTML} <h2>${d.title}</h2> <p>${d.content}</p> `;
-        } else {
-          modPaper.classList.add('behind');
-          const fixedRot = ((index * 10) % 6) - 3; 
-          modPaper.style.transform = `rotate(${fixedRot}deg)`;
-        }
-        modalStackWrap.appendChild(modPaper);
-      });
+    function initModalDOM() {
+        if(!modalStackWrap || modalStackWrap.children.length > 0) return; 
+        
+        papersData.forEach((d) => {
+            const modPaper = document.createElement('div');
+            modPaper.classList.add('mod-paper');
+            const imgHTML = d.image ? `<img src="${d.image}" class="paper-img-large">` : '';
+            modPaper.innerHTML = ` ${imgHTML} <h2>${d.title}</h2> <p>${d.content}</p> `;
+            modalStackWrap.appendChild(modPaper);
+        });
+    }
+
+    function animateModalStack() {
+        if(!modalStackWrap) return;
+        
+        const cards = modalStackWrap.querySelectorAll('.mod-paper');
+
+        cards.forEach((card, index) => {
+            
+            if (index === activeIndex) card.classList.add('active');
+            else card.classList.remove('active');
+
+            if (index === activeIndex) {
+                gsap.to(card, {
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                    rotation: 0,
+                    opacity: 1,
+                    zIndex: 20,
+                    filter: "brightness(100%) blur(0px)",
+                    duration: 0.6,
+                    ease: "back.out(1.2)" 
+                });
+            } 
+            else if (index < activeIndex) {
+                gsap.to(card, {
+                    scale: 0.8,
+                    x: -600,        
+                    y: 50,
+                    rotation: -15,  
+                    opacity: 0,     
+                    zIndex: index,  
+                    duration: 0.5,
+                    ease: "power2.in"
+                });
+            } 
+            else {
+                const offset = index - activeIndex; 
+                const randomRot = ((index * 5) % 6) - 3; 
+
+                gsap.to(card, {
+                    scale: 1 - (offset * 0.05), 
+                    x: offset * 20,             
+                    y: offset * -10,            
+                    rotation: randomRot,
+                    opacity: 1,                 
+                    zIndex: 20 - offset,        
+                    filter: "brightness(90%)",  
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+            }
+        });
+
+        updateButtonVisibility();
+    }
+
+    function updateButtonVisibility() {
+        if (prevBtn) prevBtn.style.display = (activeIndex === 0) ? 'none' : 'flex';
+        if (nextBtn) nextBtn.style.display = (activeIndex === papersData.length - 1) ? 'none' : 'flex';
     }
   
     function openModal() { 
         if(modal) modal.classList.remove('hidden'); 
         document.body.classList.add('no-scroll'); 
-        updateModalStack(); 
+        
+        initModalDOM();      
+        animateModalStack(); 
     }
   
     function closeModal() { 
@@ -132,8 +188,23 @@
     }
   
     if(closeBtn) closeBtn.addEventListener('click', closeModal);
-    if(nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); if (activeIndex < papersData.length - 1) { activeIndex++; updateModalStack(); } });
-    if(prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); if (activeIndex > 0) { activeIndex--; updateModalStack(); } });
+    
+    if(nextBtn) nextBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        if (activeIndex < papersData.length - 1) { 
+            activeIndex++; 
+            animateModalStack(); 
+        } 
+    });
+    
+    if(prevBtn) prevBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        if (activeIndex > 0) { 
+            activeIndex--; 
+            animateModalStack(); 
+        } 
+    });
+    
     if(modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
   
     document.addEventListener('DOMContentLoaded', () => { renderScatteredView(); });
