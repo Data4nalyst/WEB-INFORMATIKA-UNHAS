@@ -24,5 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     introTimer = setTimeout(activateScrollMode, 2000);
-    window.addEventListener('scroll', onUserScroll);
+    setTimeout(() => {
+        window.addEventListener('scroll', onUserScroll);
+    }, 800); 
 });

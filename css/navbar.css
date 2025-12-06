@@ -15,16 +15,13 @@
     z-index: 9999;
     
     /* === STATE DIAM (CRYSTAL EFFECT) === */
-    /* Background sangat transparan (putih tipis) */
     background: rgba(255, 255, 255, 0.05); 
     
-    /* Blur untuk efek kaca es */
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     
-    /* Border tipis mengkilap */
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Kilau atas */
+    border-top: 1px solid rgba(255, 255, 255, 0.3); 
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -35,10 +32,8 @@
 
 /* === SAAT MOUSE DIARAHKAN (HOVER) === */
 .navbar:hover {
-    /* Hitam transparansi rendah (tidak pekat) */
     background: rgba(0, 0, 0, 0.6); 
     
-    /* Blur ditingkatkan */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     
@@ -49,9 +44,11 @@
 /* === SAAT DI-SCROLL === */
 .navbar.scrolled {
     top: 15px;
-    width: 85%; /* Sedikit mengecil */
+    width: 85%; 
+    max-width: 700px; 
     
-    /* Pertahankan efek kristal, sedikit lebih blur */
+    padding: 0.5rem 1.5rem; 
+    
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(10px);
     border-color: rgba(255, 255, 255, 0.1);
@@ -59,7 +56,7 @@
 
 /* Saat scroll + hover */
 .navbar.scrolled:hover {
-    background: rgba(0, 0, 0, 0.7); /* Sedikit lebih gelap agar menu terbaca */
+    background: rgba(0, 0, 0, 0.7); 
 }
 
 /* === LOGO & LINKS === */
@@ -70,7 +67,6 @@
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
-    /* Shadow agar tulisan "INFORMATIKA" jelas di background terang */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
 }
 
@@ -89,7 +85,6 @@
     font-size: 0.9rem;
     font-weight: 500;
     position: relative;
-    /* Shadow hitam di sekeliling teks menu */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); 
     transition: all 0.3s;
 }
@@ -100,13 +95,12 @@
 }
 
 /* === INDIKATOR AKTIF (TITIK BIRU) === */
-/* CSS ini yang membuat titik biru muncul jika class 'active' ada */
 .nav-links li a::after {
     content: '';
     position: absolute;
     width: 6px;
     height: 6px;
-    background: #3b82f6; /* Warna Biru */
+    background: #3b82f6; 
     border-radius: 50%;
     bottom: -8px;
     left: 50%;
@@ -115,16 +109,6 @@
     box-shadow: 0 0 8px #3b82f6;
 }
 
-/* Titik muncul saat hover ATAU saat link punya class 'active' */
-.nav-links li a:hover::after,
 .nav-links li a.active::after {
     transform: translateX(-50%) scale(1);
-}
-
-/* === MOBILE === */
-.hamburger { display: none; cursor: pointer; }
-.hamburger .bar { 
-    display: block; width: 24px; height: 2px; margin: 6px auto; 
-    background-color: #fff; transition: all 0.3s ease; 
-    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
